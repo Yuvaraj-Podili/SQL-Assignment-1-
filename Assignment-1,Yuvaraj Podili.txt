@@ -1,0 +1,111 @@
+select * from dept;
+select * from emp;
+
+select count(*) from emp;
+
+select count(*) from dept;
+
+select * from emp;
+
+select sum(sal) from emp;
+
+select sum(comm) from emp;
+
+select distinct job from emp;
+
+select SYSDATE as system_date from dual;
+
+SELECT AVG(sal) from emp;
+
+select deptno, count(*)  
+from emp 
+group by deptno;
+
+
+select deptno, sum(sal) 
+from emp 
+group by deptno;
+
+
+select job, count(*) as employee_count 
+from emp 
+group by job;
+
+
+select job, avg(sal) as average_salary 
+from emp 
+group by job;
+
+select ename, 
+ to_char(hiredate, 'DD') AS hire_day, 
+ to_char(hiredate, 'MM') AS hire_month, 
+ to_char(hiredate, 'YYYY') AS hire_year 
+from emp;
+
+select * from emp 
+order by deptno;
+
+select * from emp 
+order by job;
+
+select * from emp 
+order by sal desc;
+
+select * from emp 
+order by deptno ASC, sal desc;
+
+select count(*) as six_charecter_employees 
+from emp 
+where LENGTH(ename) = 6;
+
+select max(sal) , min(sal)
+from emp;
+
+select deptno, 
+       max(sal) as max_salary, 
+       min(sal) as min_salary, 
+       avg(sal) as avg_salary, 
+       sum(sal) as total_salary 
+from emp 
+group by deptno;
+
+select * from emp 
+order by hiredate;
+
+select * from emp 
+where hiredate = (select max(hiredate) from emp);
+
+SELECT * FROM emp 
+WHERE hiredate = (SELECT MIN(hiredate) FROM emp);
+
+select * from emp 
+order by to_char(hiredate, 'YYYY') desc, deptno asc;
+
+select * from emp 
+where sal >= (select avg(sal) from emp);
+
+select * from emp 
+where sal <= (select avg(sal) from emp);
+
+select * from emp
+where sal between 2000 and 4000;
+
+select * from emp 
+where sal = (select max(sal) from emp) 
+  or  sal = (select min(sal) from emp);
+
+select count(*) as gifts_needed 
+from emp 
+where to_char(hiredate, 'MM') = to_char(add_months(SYSDATE, 1), 'MM');
+
+
+
+
+
+
+
+
+
+
+
+
