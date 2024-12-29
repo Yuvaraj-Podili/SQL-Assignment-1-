@@ -1,0 +1,186 @@
+﻿ASSIGNMENT #2:- Cardatabase
+
+
+---1 
+SELECT 
+    co.CountryName, 
+    c.Continent 
+FROM 
+    Countries co
+JOIN 
+    Continents c ON co.Continent = c.ContID
+ORDER BY 
+    c.Continent;
+
+
+---2
+
+
+SELECT 
+    c.Continent, 
+    COUNT(co.CountryID) AS CountryCount
+FROM 
+    Countries co
+JOIN 
+    Continents c ON co.Continent = c.ContID
+GROUP BY 
+    c.Continent;
+
+
+---3
+
+
+SELECT 
+    co.CountryName
+FROM 
+    Countries co
+LEFT JOIN 
+    Car_Makers cm ON co.CountryID = cm.Country
+WHERE 
+    cm.ID IS NULL;
+
+
+---4
+
+
+
+
+SELECT 
+    DISTINCT cm.Maker
+FROM 
+    Car_Makers cm
+JOIN 
+    Countries co ON cm.Country = co.CountryID
+WHERE 
+    LOWER(co.CountryName) = 'japan';
+
+
+---5
+SELECT 
+    DISTINCT cm.Maker
+FROM 
+    Car_Makers cm
+JOIN 
+    Countries co ON cm.Country = co.CountryID
+WHERE 
+    LOWER(co.CountryName) IN ('france', 'usa');
+
+
+---6
+
+
+SELECT 
+    co.CountryName, 
+    c.Continent
+FROM 
+    Car_Makers cm 
+JOIN 
+    Countries co ON cm.Country = co.CountryID
+JOIN 
+    Continents c ON co.Continent = c.ContID
+WHERE 
+    cm.FullName LIKE '%Volvo%';
+
+
+---7
+
+
+SELECT 
+    md.Model
+FROM 
+    Model_Details md
+JOIN 
+    Car_Makers cm ON md.Maker = cm.ID
+WHERE 
+    cm.FullName like '%Ford Motor Company%';
+
+
+---8
+
+
+SELECT 
+    COUNT(md.Model) AS ModelCount
+FROM 
+    Model_Details md
+JOIN 
+    Car_Makers cm ON md.Maker = cm.ID
+JOIN 
+    Countries co ON cm.Country = co.CountryID
+WHERE 
+    co.CountryName = 'Germany';
+
+
+---9
+
+
+SELECT 
+    md.Model, 
+    cm.Maker, 
+    cm.FullName
+FROM 
+    Model_Details md
+JOIN 
+    Car_Makers cm ON md.Maker = cm.ID
+JOIN 
+    Countries co ON cm.Country = co.CountryID
+WHERE 
+     LOWER(co.CountryName) = 'japan';
+
+
+---10
+
+
+select c. continent, cs.contryname,md.model,cm.fullname,
+          min(cd.mpg),max(cd.mpg),
+            min(cd.cylinders),max(cd.cylinders),
+                min(cd.edisple),max(cd.edispl),
+                min(cd.horsepower),max(cd.horsepower),
+                min(cd.weight),max(cd.weight),
+                min(cd.accel),max(cd.accel)
+                
+          from continents c 
+          right join countries cs on c.contid=cs.continent
+          join car_makers cm on cs.countryid=cm.country
+          join model_details md on cm.id=md.maker
+          join car_names cn on md.model =cn.model
+          join car_details cd on cn.id=cd.id
+           group by c.continents,cs.countryname,md.model,cm.fullname;
+
+
+---11
+
+
+SELECT year, COUNT(ID) AS CarsMade
+FROM Car_Details
+GROUP BY year
+ORDER BY CarsMade DESC
+FETCH FIRST 1 ROWS ONLY;
+
+
+
+
+
+
+---12: 
+
+
+SELECT year, COUNT(ID) AS CarsMade
+FROM Car_Details
+GROUP BY year
+ORDER BY CarsMade ASC
+FETCH FIRST 1 ROWS ONLY;
+
+
+--13
+
+
+SELECT MIN(mpg) AS MinMpg, MAX(mpg) AS MaxMpg, AVG(mpg) AS AvgMpg
+FROM Car_Details;
+
+
+---14: 
+SELECT 
+    AVG(horsepower) AS Mean,
+    MEDIAN(horsepower) AS Median,
+    STDDEV(horsepower) AS StdDev
+FROM Car_Details;
